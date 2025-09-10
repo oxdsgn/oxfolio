@@ -3,18 +3,28 @@
 * {
   margin: 0;
   padding: 0;
-  background-color: #eee;
+  /* background-color: #eee; */
   font-family: "Pretendard Variable", Pretendard, -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   font-weight: 500;
-  font-size: clamp(12px, 2vh, 20px);
+  font-size: clamp(12px, 1.6vh, 18px);
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
 }
 
 body {
-  padding: 6px;
+  margin: auto 10px;
   /* background-color: #ff6600; */
+  background-color: #eee;
 }
 
 a {
@@ -24,39 +34,49 @@ a {
 header {
   position: fixed;
   top: 0;
-  left: 6px;
-  right: 6px;
+  left: 10px;
+  right: 10px;
   z-index: 10;
+  border-bottom: 1.2px solid rgba(0, 0, 0, 0.4);
 }
 
 header ul {
-  border-bottom: 1.2px solid #a8a8a8;
-  margin: 80px auto;
+  margin: 0.6rem auto;
 }
 
 .gridSystem4 {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
-  grid-template-columns: 6fr 3fr 1fr;
   list-style: none;
   width: 100%;
 }
 
 .gridSystem4 li:nth-child(1) {
-  justify-self: start;
   text-align: left;
-  flex-grow: 4;
+  flex-grow: 7;
 }
 
 .gridSystem4 li:nth-child(2) {
-  justify-self: center;
-  text-align: center;
-  flex-grow: 3;
+  text-align: left;
+  flex-grow: 2;
 }
 
 .gridSystem4 li:nth-child(3) {
-  justify-self: end;
   text-align: right;
-  flex-grow: 1;
+  flex-grow: 2;
+}
+
+#sec1 {
+  background-color: #45743459;
+
+  display: flex;
+}
+
+#sec1 div:nth-child(1) {
+  flex-grow: 7;
+}
+
+#sec1 div:nth-child(2) {
+  flex-grow: 4;
 }
