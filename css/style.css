@@ -9,7 +9,7 @@
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   font-weight: 500;
-  font-size: clamp(12px, 1.6vh, 18px);
+  font-size: clamp(8pt, 1.6vh, 16pt);
 }
 
 ul {
@@ -42,41 +42,30 @@ header {
 
 header ul {
   margin: 0.6rem auto;
+  display: grid;
+  grid-template-columns: 6fr 3fr 2fr;
 }
 
-.gridSystem4 {
-  display: flex;
-  /* justify-content: space-between; */
-  align-items: center;
-  list-style: none;
-  width: 100%;
-}
-
-.gridSystem4 li:nth-child(1) {
-  text-align: left;
-  flex-grow: 7;
-}
-
-.gridSystem4 li:nth-child(2) {
-  text-align: left;
-  flex-grow: 2;
-}
-
-.gridSystem4 li:nth-child(3) {
+header ul li:nth-child(3) {
   text-align: right;
-  flex-grow: 2;
+}
+
+main {
+  
 }
 
 #sec1 {
-  background-color: #45743459;
-
-  display: flex;
+  display: grid;
+  padding: 0.8rem 0 3rem 0;
+  grid-template-columns: 6fr 5fr;
+  word-break: keep-all;
+  border-bottom: 1.2px solid rgba(0, 0, 0, 0.4);
 }
 
-#sec1 div:nth-child(1) {
-  flex-grow: 7;
+#sec1 div {
+  line-height: 1.3rem;
 }
 
-#sec1 div:nth-child(2) {
-  flex-grow: 4;
+#sec1 div:nth-child(2) p:nth-child(2) {
+  text-indent: 4rem;
 }
