@@ -14,10 +14,16 @@
   --bg-color: #eee;
   --onClickColor: #c2c2c2;
   --onHoverColor: #595959;
-  --test-color: #ff6600;
+  --test-color: #ffae0088;
   --mono-overpass: "Overpass Mono", monospace;
   --mono-flex: "IBM Plex Mono", monospace;
   --mono-dm: "DM Mono", monospace;
+  --depth1: 1;
+  --depth2: 2;
+  --depth3: 3;
+  --depthTop: 100;
+  --speed: 1;
+  --cursor: grab;
 }
 
 *::selection {
@@ -75,12 +81,44 @@ a:active {
   backdrop-filter: blur(2px);
 }
 
+#alertPopBack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  z-index: var(--depthTop);
+}
+
+.alertPop {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff4b;
+  border-radius: 1rem;
+  width: 30vw;
+  height: 10vh;
+}
+
+.alertPop p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 95%;
+  font-size: 1.5rem;
+  color: #202020;
+}
+
 header {
   position: fixed;
   top: 0;
   left: 10px;
   right: 10px;
-  z-index: 10;
+  z-index: var(--depth2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
@@ -194,7 +232,7 @@ footer {
   bottom: 0;
   left: 10px;
   right: 10px;
-  z-index: 1000;
+  z-index: var(--depth2);
   border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 
@@ -207,3 +245,6 @@ footer ul {
 footer ul li:nth-child(3) {
   text-align: right;
 }
+
+
+
