@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 //slider @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
+const slideSpeedValue = "7582";
 $(document).ready(function () {
   let sliderInitialized = false;
 
@@ -153,7 +153,6 @@ $(document).ready(function () {
     if (autoSwitch === true) {
       setInterval(nextSlide, autoSwitchSpeed);
     }
-
     $(".slide").first().addClass("active");
     $(".slide").hide();
     $(".active").show();
@@ -244,3 +243,18 @@ function mobileFooter() {
 
 window.addEventListener("DOMContentLoaded", mobileFooter);
 window.addEventListener("resize", mobileFooter);
+
+const alert = document.getElementById("alertPopBack");
+const pwdInput = document.getElementById("overlay-password");
+const pwdBtn = document.getElementById("overlay-btn");
+const pwdMsg = document.getElementById("overlay-msg");
+
+pwdBtn.addEventListener("click", function () {
+  const value = pwdInput.value.trim();
+
+  if (value === slideSpeedValue) {
+    alert.classList.add("hidden");
+  } else {
+    pwdMsg.textContent = "Incorrect pwd. Please try again";
+  }
+});

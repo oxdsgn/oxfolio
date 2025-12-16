@@ -104,22 +104,42 @@ a:active {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f0f0f0b0;
+  background-color: #7f7f7f1e;
   border-radius: 1rem;
-  width: 30vw;
-  height: 10vh;
+  width: 800px;
+  height: 140px;
   filter: drop-shadow(4px 4px 15px #00000014);
+  padding: 40px 0;
 }
 
-.alertPop p {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.alertPop h3 {
   text-align: center;
-  width: 95%;
   font-size: 1.5rem;
   color: #1e1e1e;
+}
+
+#overlay-password {
+  display: block;
+  text-align: center;
+  margin: 20px auto 0 auto;
+}
+
+#overlay-btn {
+  display: block;
+  padding: 8px 30px;
+  margin: 10px auto 0 auto;
+}
+
+.alertPop .msg {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.9rem;
+
+  color: #ff0000;
+}
+
+.hidden {
+  display: none;
 }
 
 header {
