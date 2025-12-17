@@ -160,3 +160,96 @@ $(document).ready(function () {
   // 리사이즈 때마다 체크
   $(window).on("resize", checkWidth);
 });
+
+
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+function setSlideSizeRespon() {
+  const slide = document.querySelectorAll(".slide");
+  const viewportWidth = window.innerWidth;
+  if (slide) {
+    const slideWidth = slide.offsetWidth;
+    document.documentElement.style.setProperty(
+      "--slide-width",
+      slideWidth + "px"
+    );
+  }
+  //mobile
+  if (viewportWidth < 768) {
+    slide.forEach((slide) => {
+      slide.classList.remove("slideWeb", "slideTablet");
+      slide.classList.add("slideMobile");
+    });
+    return;
+  }
+  //tablet
+  const firstSlide = slide[0];
+  if (firstSlide) {
+    const slideWidth = firstSlide.offsetWidth;
+    const slideTablet = document.querySelectorAll(".slideTablet");
+    const slideTabletImg = document.querySelectorAll(".slideTablet img");
+    if (viewportWidth < slideWidth) {
+      //Tablet
+      slide.forEach((slide) => {
+        slide.classList.remove("slideWeb", "slideMobile");
+        slide.classList.add("slideTablet");
+      });
+      return;
+    }
+  }
+  const slideWeb = document.querySelectorAll(".slideWeb");
+  const slideWebImg = document.querySelectorAll(".slideWeb img");
+  //web
+  slide.forEach((slide) => {
+    slide.classList.remove("slideTablet", "slideMobile");
+    slide.classList.add("slideWeb");
+  });
+}
+window.addEventListener("DOMContentLoaded", setSlideSizeRespon);
+window.addEventListener("resize", setSlideSizeRespon);
+
+
+// @@@@@@@@
+
+
+function setSlideSizeRespon() {
+  const slide = document.querySelectorAll(".slide");
+  const viewportWidth = window.innerWidth;
+  if (slide) {
+    const slideWidth = slide.offsetWidth;
+    document.documentElement.style.setProperty(
+      "--slide-width",
+      slideWidth + "px"
+    );
+  }
+  //mobile
+  if (viewportWidth < 768) {
+    slide.forEach((slide) => {
+      slide.classList.remove("slideWeb", "slideTablet");
+      slide.classList.add("slideMobile");
+    });
+    return;
+  }
+  //tablet
+  const firstSlide = slide[0];
+  if (firstSlide) {
+    const slideWidth = firstSlide.offsetWidth;
+    if (viewportWidth < slideWidth) {
+      //Tablet
+      slide.forEach((slide) => {
+        slide.classList.remove("slideWeb", "slideMobile");
+        slide.classList.add("slideTablet");
+      });
+      return;
+    }
+  }
+
+  //web
+  slide.forEach((slide) => {
+    slide.classList.remove("slideTablet", "slideMobile");
+    slide.classList.add("slideWeb");
+  });
+}
+window.addEventListener("DOMContentLoaded", setSlideSizeRespon);
+window.addEventListener("resize", setSlideSizeRespon);

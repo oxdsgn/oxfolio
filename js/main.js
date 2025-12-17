@@ -25,8 +25,11 @@ function setMainMargin() {
 window.addEventListener("DOMContentLoaded", setMainMargin);
 window.addEventListener("resize", setMainMargin);
 
-function setSlideSizeReactive() {
-  const slide = document.querySelector(".slide");
+//slide Responsive @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+function setSlideSizeRespon() {
+  const slide = document.querySelectorAll(".slide");
+  const viewportWidth = window.innerWidth;
   if (slide) {
     const slideWidth = slide.offsetWidth;
     document.documentElement.style.setProperty(
@@ -34,10 +37,23 @@ function setSlideSizeReactive() {
       slideWidth + "px"
     );
   }
+  //mobile
+  if (viewportWidth < 768) {
+    slide.forEach((slide) => {
+      slide.classList.remove("slideWeb");
+      slide.classList.add("slideMobile");
+    });
+    return;
+  }
+  //web
+  if (viewportWidth > 767)
+    slide.forEach((slide) => {
+      slide.classList.remove("slideMobile");
+      slide.classList.add("slideWeb");
+    });
 }
-
-window.addEventListener("DOMContentLoaded", setSlideSizeReactive);
-window.addEventListener("resize", setSlideSizeReactive);
+window.addEventListener("DOMContentLoaded", setSlideSizeRespon);
+window.addEventListener("resize", setSlideSizeRespon);
 
 //Update date Global editor  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -214,7 +230,7 @@ $(document).ready(function () {
     $(".slide").stop(true, true).show().removeClass("active oldActive");
   }
 
-  function checkWidth() {
+  function TouchSlideTriger() {
     if (window.innerWidth > 768) {
       initSlider(); // 커졌을 때 슬라이더 켜기
     } else {
@@ -222,10 +238,8 @@ $(document).ready(function () {
     }
   }
 
-  // 최초 1회 체크
-  checkWidth();
-  // 리사이즈 때마다 체크
-  $(window).on("resize", checkWidth);
+  TouchSlideTriger();
+  $(window).on("resize", TouchSlideTriger);
 });
 
 //mobile footer @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -255,6 +269,6 @@ pwdBtn.addEventListener("click", function () {
   if (value === slideSpeedValue) {
     alert.classList.add("hidden");
   } else {
-    pwdMsg.textContent = "Incorrect pwd. Please try again";
+    pwdMsg.textContent = "Incorrect password. Please try again";
   }
 });

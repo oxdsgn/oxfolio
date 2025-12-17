@@ -105,3 +105,48 @@ footer ul li:nth-child(3) {
   right: 0;
   float: right;
 }
+
+/* 반응형 슬라이더 백업 12.17 */
+
+@media (max-width: 767px) {
+  #slideContainer .slide:last-child {
+    padding-bottom: var(--footer-height);
+  }
+
+  .slide img {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1010px) {
+  #slideContainer .slide {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: calc(100vh - var(--footer-height) - var(--header-height));
+  }
+  .slide img {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1011px) {
+  #slideContainer .slide {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  .slide img {
+    height: calc(100vh - var(--header-height) - var(--footer-height));
+    /* width: 100vw; */
+  }
+}
+
+
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+
