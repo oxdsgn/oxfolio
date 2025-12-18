@@ -200,22 +200,22 @@ $(document).ready(function () {
       $(".active").fadeIn(slideNextSpeed);
     }
 
-    // slide icon
-    $("#next")
-      .on("mouseenter.slider", function () {
-        $(this).css("cursor", "url(./../img/nextPointer.png) 31 16, auto");
-      })
-      .on("mouseleave.slider", function () {
-        $(this).css("cursor", "auto");
-      });
+    // slide pointer @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    // $("#next")
+    //   .on("mouseenter.slider", function () {
+    //     $(this).css("cursor", "url(./../img/nextPointer.png) 31 16, auto");
+    //   })
+    //   .on("mouseleave.slider", function () {
+    //     $(this).css("cursor", "auto");
+    //   });
 
-    $("#prev")
-      .on("mouseenter.slider", function () {
-        $(this).css("cursor", "url(./../img/prevPointer.png) 1 16, auto");
-      })
-      .on("mouseleave.slider", function () {
-        $(this).css("cursor", "auto");
-      });
+    // $("#prev")
+    //   .on("mouseenter.slider", function () {
+    //     $(this).css("cursor", "url(./../img/prevPointer.png) 1 16, auto");
+    //   })
+    //   .on("mouseleave.slider", function () {
+    //     $(this).css("cursor", "auto");
+    //   });
   }
 
   function destroySlider() {
@@ -282,5 +282,54 @@ if (alert) {
     } else {
       pwdMsg.textContent = "Incorrect password. Please try again";
     }
+  });
+}
+
+// slide Pointer BlendMode !delete slide pointer '*203'
+
+const slidePointer = document.getElementById("slidePointer");
+const pointerImgs = document.querySelectorAll("#slidePointer img");
+const prevPointer = pointerImgs[0];
+const nextPointer = pointerImgs[pointerImgs.length - 1];
+const prev = document.getElementById("prev");
+const next = document.getElementById("next");
+
+if (slidePointer) {
+  function hidePointer() {
+    slidePointer.style.display = "none";
+    pointerImgs.forEach((img) => {
+      img.style.display = "none";
+    });
+  }
+
+  if (slidePointer) {
+    document.addEventListener("mousemove", (e) => {
+      slidePointer.style.left = e.clientX + "px";
+      slidePointer.style.top = e.clientY + "px";
+    });
+  }
+
+  prev.addEventListener("mouseenter", () => {
+    document.body.style.cursor = "none";
+    hidePointer();
+    slidePointer.style.display = "block";
+    slidePointer.style.transform = "translate(-1px, -16px)";
+    if (prevPointer) prevPointer.style.display = "block";
+  });
+  prev.addEventListener("mouseleave", () => {
+    hidePointer();
+    document.body.style.cursor = "auto";
+  });
+
+  next.addEventListener("mouseenter", () => {
+    document.body.style.cursor = "none";
+    hidePointer();
+    slidePointer.style.display = "block";
+    slidePointer.style.transform = "translate(-31px, -16px)";
+    if (nextPointer) nextPointer.style.display = "block";
+  });
+  next.addEventListener("mouseleave", () => {
+    hidePointer();
+    document.body.style.cursor = "auto";
   });
 }
