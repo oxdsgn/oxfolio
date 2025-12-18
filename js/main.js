@@ -246,13 +246,12 @@ $(document).ready(function () {
 
 function setAppHeight() {
   const appVh = window.innerHeight;
-  document.documentElement.style.setProperty("--app-height", "${appVh}px");
-
-  window.addEventListener("resize", setAppHeight);
-  window.addEventListener("orientationchange", setAppHeight);
-  window.addEventListener("DOMContentLoaded", setAppHeight);
+  document.documentElement.style.setProperty("--app-height", appVh + "px");
 }
 
+window.addEventListener("resize", setAppHeight);
+window.addEventListener("orientationchange", setAppHeight);
+window.addEventListener("DOMContentLoaded", setAppHeight);
 //mobile footer @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 function mobileFooter() {
@@ -274,12 +273,14 @@ const pwdInput = document.getElementById("overlay-password");
 const pwdBtn = document.getElementById("overlay-btn");
 const pwdMsg = document.getElementById("overlay-msg");
 
-pwdBtn.addEventListener("click", function () {
-  const value = pwdInput.value.trim();
+if (alert) {
+  pwdBtn.addEventListener("click", function () {
+    const value = pwdInput.value.trim();
 
-  if (value === slideSpeedValue) {
-    alert.classList.add("hidden");
-  } else {
-    pwdMsg.textContent = "Incorrect password. Please try again";
-  }
-});
+    if (value === slideSpeedValue) {
+      alert.classList.add("hidden");
+    } else {
+      pwdMsg.textContent = "Incorrect password. Please try again";
+    }
+  });
+}
