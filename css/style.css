@@ -43,6 +43,13 @@
   font-size: clamp(8pt, 1.6vh, 16pt);
 }
 
+#page-projects {
+  -ms-overflow-style: none;
+}
+#page-projects::-webkit-scrollbar {
+  display: none;
+}
+
 ul {
   padding: 0;
   margin: 0;
@@ -282,6 +289,19 @@ footer ul li:last-child {
   position: relative;
   width: 100%;
   padding: 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #slideContainer .slideWeb {
+    height: calc(
+      var(--app-height) - var(--header-height) - var(--footer-height)
+    ) !important;
+  }
+  .slideWeb img {
+    max-height: calc(
+      var(--app-height) - var(--header-height) - var(--footer-height)
+    ) !important;
+  }
 }
 
 #slideContainer .slideMobile:last-child {

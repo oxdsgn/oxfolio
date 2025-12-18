@@ -242,6 +242,17 @@ $(document).ready(function () {
   $(window).on("resize", TouchSlideTriger);
 });
 
+//Redefine Tablet Height @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+function setAppHeight() {
+  const appVh = window.innerHeight;
+  document.documentElement.style.setProperty("--app-height", "${appVh}px");
+
+  window.addEventListener("resize", setAppHeight);
+  window.addEventListener("orientationchange", setAppHeight);
+  window.addEventListener("DOMContentLoaded", setAppHeight);
+}
+
 //mobile footer @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 function mobileFooter() {
