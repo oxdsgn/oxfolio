@@ -1,6 +1,6 @@
+const header = document.querySelector("header");
+const footer = document.querySelector("footer");
 function setMainMargin() {
-  const header = document.querySelector("header");
-  const footer = document.querySelector("footer");
   const main = document.querySelector("main");
   const slideContainer = document.querySelector("#slideContainer");
 
@@ -156,6 +156,57 @@ const slideSpeedValue = "7582";
 $(document).ready(function () {
   let sliderInitialized = false;
 
+  // slide 개별 이미지 로드
+  function loadImage($img) {
+    if (!$img.length) return;
+    if ($img.data("loaded") === true) return;
+
+    const src = $img.attr("data-src");
+    if (!src) return;
+    // console.log("loadImage 호출, data-src", src); // 디버그용
+
+    $img.attr("src", src);
+    $img.data("loaded", true);
+  }
+
+  // active 기준 앞뒤 2*slide까지 로드
+  function loadAroundActive() {
+    // console.log("loadAroundActive 실행");  // 디버그용
+
+    const $slides = $("#slider .slide");
+    const $active = $slides.filter(".active");
+    if (!$active.length) return;
+
+    const activeIndex = $slides.index($active);
+    // console.log("현재 active인덱스:", activeIndex); //디버그용
+
+    $slides.each(function (i) {
+      const $slide = $(this);
+      const $img = $slide.find("img");
+      const distance = Math.abs(i - activeIndex);
+
+      if (distance <= 2) {
+        loadImage($img);
+      }
+
+      //디버그용 open
+      // if (distance <= 2) {
+      //   console.log(
+      //     "로그 대상 슬라이드 인덱스",
+      //     i,
+      //     "distance",
+      //     distance,
+      //     "data-src",
+      //     $img.attr("data-src")
+      //   );
+      //   loadImage($img);
+      // } else {
+      //   console.log("로드 안 함(범위 밖) 인덱스", i, "distance", distance);
+      // }
+      //디버그용 close
+    });
+  }
+
   function initSlider() {
     if (sliderInitialized) return;
     sliderInitialized = true;
@@ -173,6 +224,9 @@ $(document).ready(function () {
     $(".slide").hide();
     $(".active").show();
 
+    //초기 로드
+    loadAroundActive();
+
     $("#next").on("click.slider", nextSlide);
     $("#prev").on("click.slider", prevSlide);
 
@@ -186,6 +240,9 @@ $(document).ready(function () {
       $(".oldActive").removeClass("oldActive");
       $(".slide").fadeOut(slidePrevSpeed);
       $(".active").fadeIn(slideNextSpeed);
+
+      //active 변동 시 주변 로드
+      loadAroundActive();
     }
 
     function prevSlide() {
@@ -198,6 +255,9 @@ $(document).ready(function () {
       $(".oldActive").removeClass("oldActive");
       $(".slide").fadeOut(slidePrevSpeed);
       $(".active").fadeIn(slideNextSpeed);
+
+      //active 변동 시 주변 로드
+      loadAroundActive();
     }
 
     // slide pointer @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

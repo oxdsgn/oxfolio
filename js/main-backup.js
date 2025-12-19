@@ -1,74 +1,7 @@
-$(document).ready(function () {
-  if (window.innerWidth <= 768) {
-    return;
-  }
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// slide backup 251219 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-  //options
-  var slideNextSpeed = 300;
-  var slidePrevSpeed = 600;
-  var autoSwitch = false;
-  var autoSwitchSpeed = 4000;
-
-  $(".slide").first().addClass("active");
-  $(".slide").hide();
-  $(".active").show();
-
-  $("#next").on("click", nextSlide);
-  $("#prev").on("click", prevSlide);
-
-  if (autoSwitch === true) {
-    setInterval(nextSlide, autoSwitchSpeed);
-  }
-
-  //slide btn
-  function nextSlide() {
-    $(".active").removeClass("active").addClass("oldActive");
-    if ($(".oldActive").is(":last-child")) {
-      $(".slide").first().addClass("active");
-    } else {
-      $(".oldActive").next().addClass("active");
-    }
-    $(".oldActive").removeClass("oldActive");
-    $(".slide").fadeOut(slidePrevSpeed);
-    $(".active").fadeIn(slideNextSpeed);
-  }
-
-  function prevSlide() {
-    $(".active").removeClass("active").addClass("oldActive");
-    if ($(".oldActive").is(":first-child")) {
-      $(".slide").last().addClass("active");
-    } else {
-      $(".oldActive").prev().addClass("active");
-    }
-    $(".oldActive").removeClass("oldActive");
-    $(".slide").fadeOut(slidePrevSpeed);
-    $(".active").fadeIn(slideNextSpeed);
-  }
-
-  //slide icon
-  $("#next")
-    .on("mouseenter", function () {
-      $(this).css("cursor", "url(./../img/nextPointer.png) 31 16, auto");
-    })
-    .on("mouseleave", function () {
-      $(this).css("cursor", "auto");
-    });
-
-  $("#prev")
-    .on("mouseenter", function () {
-      $(this).css("cursor", "url(./../img/prevPointer.png) 1 16, auto");
-    })
-    .on("mouseleave", function () {
-      $(this).css("cursor", "auto");
-    });
-});
-
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
+const slideSpeedValue = "7582";
 $(document).ready(function () {
   let sliderInitialized = false;
 
@@ -85,7 +18,6 @@ $(document).ready(function () {
     if (autoSwitch === true) {
       setInterval(nextSlide, autoSwitchSpeed);
     }
-
     $(".slide").first().addClass("active");
     $(".slide").hide();
     $(".active").show();
@@ -117,22 +49,22 @@ $(document).ready(function () {
       $(".active").fadeIn(slideNextSpeed);
     }
 
-    // slide icon
-    $("#next")
-      .on("mouseenter.slider", function () {
-        $(this).css("cursor", "url(./../img/nextPointer.png) 31 16, auto");
-      })
-      .on("mouseleave.slider", function () {
-        $(this).css("cursor", "auto");
-      });
+    // slide pointer @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    // $("#next")
+    //   .on("mouseenter.slider", function () {
+    //     $(this).css("cursor", "url(./../img/nextPointer.png) 31 16, auto");
+    //   })
+    //   .on("mouseleave.slider", function () {
+    //     $(this).css("cursor", "auto");
+    //   });
 
-    $("#prev")
-      .on("mouseenter.slider", function () {
-        $(this).css("cursor", "url(./../img/prevPointer.png) 1 16, auto");
-      })
-      .on("mouseleave.slider", function () {
-        $(this).css("cursor", "auto");
-      });
+    // $("#prev")
+    //   .on("mouseenter.slider", function () {
+    //     $(this).css("cursor", "url(./../img/prevPointer.png) 1 16, auto");
+    //   })
+    //   .on("mouseleave.slider", function () {
+    //     $(this).css("cursor", "auto");
+    //   });
   }
 
   function destroySlider() {
@@ -147,7 +79,7 @@ $(document).ready(function () {
     $(".slide").stop(true, true).show().removeClass("active oldActive");
   }
 
-  function checkWidth() {
+  function TouchSlideTriger() {
     if (window.innerWidth > 768) {
       initSlider(); // 커졌을 때 슬라이더 켜기
     } else {
@@ -155,101 +87,6 @@ $(document).ready(function () {
     }
   }
 
-  // 최초 1회 체크
-  checkWidth();
-  // 리사이즈 때마다 체크
-  $(window).on("resize", checkWidth);
+  TouchSlideTriger();
+  $(window).on("resize", TouchSlideTriger);
 });
-
-
-
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-function setSlideSizeRespon() {
-  const slide = document.querySelectorAll(".slide");
-  const viewportWidth = window.innerWidth;
-  if (slide) {
-    const slideWidth = slide.offsetWidth;
-    document.documentElement.style.setProperty(
-      "--slide-width",
-      slideWidth + "px"
-    );
-  }
-  //mobile
-  if (viewportWidth < 768) {
-    slide.forEach((slide) => {
-      slide.classList.remove("slideWeb", "slideTablet");
-      slide.classList.add("slideMobile");
-    });
-    return;
-  }
-  //tablet
-  const firstSlide = slide[0];
-  if (firstSlide) {
-    const slideWidth = firstSlide.offsetWidth;
-    const slideTablet = document.querySelectorAll(".slideTablet");
-    const slideTabletImg = document.querySelectorAll(".slideTablet img");
-    if (viewportWidth < slideWidth) {
-      //Tablet
-      slide.forEach((slide) => {
-        slide.classList.remove("slideWeb", "slideMobile");
-        slide.classList.add("slideTablet");
-      });
-      return;
-    }
-  }
-  const slideWeb = document.querySelectorAll(".slideWeb");
-  const slideWebImg = document.querySelectorAll(".slideWeb img");
-  //web
-  slide.forEach((slide) => {
-    slide.classList.remove("slideTablet", "slideMobile");
-    slide.classList.add("slideWeb");
-  });
-}
-window.addEventListener("DOMContentLoaded", setSlideSizeRespon);
-window.addEventListener("resize", setSlideSizeRespon);
-
-
-// @@@@@@@@
-
-
-function setSlideSizeRespon() {
-  const slide = document.querySelectorAll(".slide");
-  const viewportWidth = window.innerWidth;
-  if (slide) {
-    const slideWidth = slide.offsetWidth;
-    document.documentElement.style.setProperty(
-      "--slide-width",
-      slideWidth + "px"
-    );
-  }
-  //mobile
-  if (viewportWidth < 768) {
-    slide.forEach((slide) => {
-      slide.classList.remove("slideWeb", "slideTablet");
-      slide.classList.add("slideMobile");
-    });
-    return;
-  }
-  //tablet
-  const firstSlide = slide[0];
-  if (firstSlide) {
-    const slideWidth = firstSlide.offsetWidth;
-    if (viewportWidth < slideWidth) {
-      //Tablet
-      slide.forEach((slide) => {
-        slide.classList.remove("slideWeb", "slideMobile");
-        slide.classList.add("slideTablet");
-      });
-      return;
-    }
-  }
-
-  //web
-  slide.forEach((slide) => {
-    slide.classList.remove("slideTablet", "slideMobile");
-    slide.classList.add("slideWeb");
-  });
-}
-window.addEventListener("DOMContentLoaded", setSlideSizeRespon);
-window.addEventListener("resize", setSlideSizeRespon);
