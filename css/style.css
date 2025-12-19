@@ -72,8 +72,9 @@ body {
 }
 
 body {
-  margin: auto 10px;
+  /* margin: auto 10px; */
   background-color: #eee;
+  /* background-color: var(--test-color-2); */
 }
 
 img {
@@ -156,24 +157,6 @@ a:active {
   display: none;
 }
 
-#slidePointer {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 32px;
-  height: 32px;
-  z-index: var(--depthTop);
-  pointer-events: none;
-  mix-blend-mode: difference;
-}
-
-#slidePointer img {
-  position: absolute;
-  display: none;
-  width: 100%;
-  height: 100%;
-}
-
 header {
   position: fixed;
   top: 0;
@@ -220,6 +203,10 @@ footer ul {
 
 footer ul li:last-child {
   text-align: right;
+}
+
+main {
+  margin: auto 10px;
 }
 
 #sec1 {
@@ -303,11 +290,31 @@ footer ul li:last-child {
   color: #ddd;
 }
 
+#slidePointer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  z-index: var(--depthTop);
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+#slidePointer img {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
 /* ------------------------------------------SLIDER----------------------------------------------- */
 
+/* 기본: 모바일/공통에서 slideContainer는 콘텐츠 높이에 맞게 늘어남 */
 #slideContainer {
-  height: calc(100vh - var(--footer-height) - var(--header-height));
   margin: 0 auto var(--footer-height) auto;
+  /* min-height: calc(100vh - var(--footer-height) - var(--header-height)); */
+  /* background-color: var(--test-color-1); */
 }
 
 #slider {
@@ -316,42 +323,53 @@ footer ul li:last-child {
   padding: 0;
 }
 
-#slideContainer .slideMobile:last-child {
-  padding-bottom: var(--footer-height);
+/* 모바일(app) 모드: slideMobile = 세로 나열 */
+.slideMobile {
+  position: static;
+  width: 100%;
+  display: block;
 }
 
 .slideMobile img {
   width: 100%;
 }
 
-#slideContainer .slideWeb {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - var(--header-height) - var(--footer-height));
-}
+/* 데스크탑(web) 모드: slideWeb = 원래 슬라이더 레이아웃 */
+@media screen and (min-width: 768px) {
+  #slideContainer {
+    height: calc(100vh - var(--footer-height) - var(--header-height));
+  }
 
-.slideWeb img {
-  max-height: calc(100vh - var(--header-height) - var(--footer-height));
-  max-width: 100vw;
-}
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
   #slideContainer .slideWeb {
-    height: calc(
-      var(--app-height) - var(--header-height) - var(--footer-height)
-    ) !important;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - var(--header-height) - var(--footer-height));
   }
+
   .slideWeb img {
-    max-height: calc(
-      var(--app-height) - var(--header-height) - var(--footer-height)
-    ) !important;
+    max-height: calc(100vh - var(--header-height) - var(--footer-height));
+    max-width: 100vw;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    #slideContainer .slideWeb {
+      height: calc(
+        var(--app-height) - var(--header-height) - var(--footer-height)
+      ) !important;
+    }
+    .slideWeb img {
+      max-height: calc(
+        var(--app-height) - var(--header-height) - var(--footer-height)
+      ) !important;
+    }
   }
 }
 
+/* next / prev 클릭 영역은 데스크탑에서만 의미 있음 */
 #prev,
 #next {
   z-index: var(--depthTop);
@@ -362,11 +380,9 @@ footer ul li:last-child {
 }
 
 #prev {
-  float: left;
   left: 0;
 }
 
 #next {
   right: 0;
-  float: right;
 }

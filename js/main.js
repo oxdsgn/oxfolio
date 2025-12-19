@@ -1,5 +1,6 @@
 const header = document.querySelector("header");
 const footer = document.querySelector("footer");
+
 function setMainMargin() {
   const main = document.querySelector("main");
   const slideContainer = document.querySelector("#slideContainer");
@@ -25,284 +26,251 @@ function setMainMargin() {
 window.addEventListener("DOMContentLoaded", setMainMargin);
 window.addEventListener("resize", setMainMargin);
 
-//slide Responsive @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// slide Responsive @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 function setSlideSizeRespon() {
-  const slide = document.querySelectorAll(".slide");
+  const slides = document.querySelectorAll(".slide");
   const viewportWidth = window.innerWidth;
-  if (slide) {
-    const slideWidth = slide.offsetWidth;
+
+  // 슬라이드가 있을 때만 width 계산
+  if (slides.length > 0) {
+    const slideWidth = slides[0].offsetWidth;
     document.documentElement.style.setProperty(
       "--slide-width",
       slideWidth + "px"
     );
   }
-  //mobile
+
+  // mobile
   if (viewportWidth < 768) {
-    slide.forEach((slide) => {
+    slides.forEach((slide) => {
       slide.classList.remove("slideWeb");
       slide.classList.add("slideMobile");
     });
     return;
   }
-  //web
-  if (viewportWidth > 767)
-    slide.forEach((slide) => {
+
+  // web
+  if (viewportWidth > 767) {
+    slides.forEach((slide) => {
       slide.classList.remove("slideMobile");
       slide.classList.add("slideWeb");
     });
+  }
 }
 window.addEventListener("DOMContentLoaded", setSlideSizeRespon);
 window.addEventListener("resize", setSlideSizeRespon);
 
-//Update date Global editor  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// Update date Global editor  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 document.addEventListener("DOMContentLoaded", function () {
   const dateLi = document.getElementById("update-date");
   if (dateLi) {
-    dateLi.textContent = "Site Updated on 2025. 12"; //업데이트 일자 기입
+    dateLi.textContent = "Site Updated on 2025. 12";
   }
 });
 
-//vinyl  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// slider respons version @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-// let audioCtx,
-//   buffer,
-//   source,
-//   speed = 1;
-// const tTable = document.getElementById("tTable"),
-//   play = document.getElementById("play"),
-//   stop = document.getElementById("stop");
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   window.scrollTo(0, tTable.scrollHeight / 2.5);
-// });
-
-// gsap.to("tTable", {
-//   opacity: 1,
-//   scrollTrigger: {
-//     trigger: "tTable",
-//     start: "top top",
-//     end: "bottom bottom",
-//     scrub: 0.05,
-//     onLeave: function () {
-//       window.scrollTo(0, 0);
-//     },
-//     onScrubComplete: (self) => {
-//       speed = 1;
-//       tTable.style.setProperty("--cursor", "grab");
-//       if (play.disabled === true) {
-//         source.playbackRate.value = speed;
-//         tTable.style.setProperty("--speed", 1);
-//       }
-//       if (self.progress === 0) {
-//         window.scrollTo(0, tTable.scrollHeight);
-//       }
-//     },
-//     onUpdate: ({ getVelocity }) => {
-//       if (getVelocity() < 1) {
-//         speed = Math.max(1 - Math.abs(getVelocity() / 3000), 0.05);
-//         tTable.style.setProperty("--speed", speed);
-//       } else {
-//         speed = 1 + Math.abs(getVelocity() / 3000);
-//         tTable.style.setProperty("--speed", speed);
-//       }
-//       if (play.disabled === true) {
-//         tTable.style.setProperty("--cursor", "grabbing");
-//         source.playbackRate.value = speed;
-//       }
-//     },
-//   },
-// });
-
-// async function loadAudio() {
-//   try {
-//     // Load an audio file
-//     const response = await fetch(
-//       "https://assets.codepen.io/383755/squeezeme.mp3"
-//     );
-//     // Decode it
-//     buffer = await audioCtx.decodeAudioData(await response.arrayBuffer());
-//   } catch (err) {
-//     console.error(`Unable to fetch the audio file. Error: ${err.message}`);
-//   }
-// }
-
-// play.addEventListener("click", async () => {
-//   if (!audioCtx) {
-//     audioCtx = new AudioContext();
-//     secondaryCtx = new AudioContext();
-//     await loadAudio();
-//   }
-//   body.classList.add("playing");
-//   setTimeout(() => {
-//     source = audioCtx.createBufferSource();
-//     source.buffer = buffer;
-//     source.connect(audioCtx.destination);
-//     source.loop = true;
-//     source.start();
-//     play.disabled = true;
-//   }, 1000);
-// });
-
-// stop.addEventListener("click", async () => {
-//   body.classList.remove("playing");
-//   source.stop();
-//   play.disabled = false;
-// });
-
-//slider @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 const slideSpeedValue = "7582";
+
 $(document).ready(function () {
   let sliderInitialized = false;
 
-  // slide 개별 이미지 로드
+  // 공용: 개별 이미지 로드
   function loadImage($img) {
     if (!$img.length) return;
     if ($img.data("loaded") === true) return;
 
     const src = $img.attr("data-src");
     if (!src) return;
-    // console.log("loadImage 호출, data-src", src); // 디버그용
 
     $img.attr("src", src);
     $img.data("loaded", true);
   }
 
-  // active 기준 앞뒤 2*slide까지 로드
-  function loadAroundActive() {
-    // console.log("loadAroundActive 실행");  // 디버그용
+  // ===== 768 이하에서 사용할 lazy load =====
 
-    const $slides = $("#slider .slide");
-    const $active = $slides.filter(".active");
-    if (!$active.length) return;
+  let lazyObserver = null;
+  let lazyScrollBound = false;
 
-    const activeIndex = $slides.index($active);
-    // console.log("현재 active인덱스:", activeIndex); //디버그용
+  // 뷰포트 체크 (fallback용)
+  function isInViewport($el) {
+    const rect = $el[0].getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    return rect.top < vh && rect.bottom > 0 && rect.left < vw && rect.right > 0;
+  }
 
-    $slides.each(function (i) {
-      const $slide = $(this);
-      const $img = $slide.find("img");
-      const distance = Math.abs(i - activeIndex);
-
-      if (distance <= 2) {
+  // scroll + resize fallback
+  function lazyLoadOnScroll() {
+    $("#slider .slide img[data-src]").each(function () {
+      const $img = $(this);
+      if (isInViewport($img)) {
         loadImage($img);
       }
-
-      //디버그용 open
-      // if (distance <= 2) {
-      //   console.log(
-      //     "로그 대상 슬라이드 인덱스",
-      //     i,
-      //     "distance",
-      //     distance,
-      //     "data-src",
-      //     $img.attr("data-src")
-      //   );
-      //   loadImage($img);
-      // } else {
-      //   console.log("로드 안 함(범위 밖) 인덱스", i, "distance", distance);
-      // }
-      //디버그용 close
     });
   }
 
-  function initSlider() {
-    if (sliderInitialized) return;
-    sliderInitialized = true;
+  function initLazyLoadForApp() {
+    const $imgs = $("#slider .slide img[data-src]");
 
-    // options
-    var slideNextSpeed = 300;
-    var slidePrevSpeed = 600;
-    var autoSwitch = false;
-    var autoSwitchSpeed = 4000;
+    // 이미 연결되어 있으면 재초기화 방지
+    if (window.innerWidth > 768) return;
 
-    if (autoSwitch === true) {
-      setInterval(nextSlide, autoSwitchSpeed);
-    }
-    $(".slide").first().addClass("active");
-    $(".slide").hide();
-    $(".active").show();
-
-    //초기 로드
-    loadAroundActive();
-
-    $("#next").on("click.slider", nextSlide);
-    $("#prev").on("click.slider", prevSlide);
-
-    function nextSlide() {
-      $(".active").removeClass("active").addClass("oldActive");
-      if ($(".oldActive").is(":last-child")) {
-        $(".slide").first().addClass("active");
-      } else {
-        $(".oldActive").next().addClass("active");
+    // IntersectionObserver 지원 시
+    if ("IntersectionObserver" in window) {
+      // 기존 observer 정리
+      if (lazyObserver) {
+        lazyObserver.disconnect();
+        lazyObserver = null;
       }
-      $(".oldActive").removeClass("oldActive");
-      $(".slide").fadeOut(slidePrevSpeed);
-      $(".active").fadeIn(slideNextSpeed);
 
-      //active 변동 시 주변 로드
-      loadAroundActive();
-    }
+      lazyObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const img = entry.target;
+          loadImage($(img));
+          observer.unobserve(img);
+        });
+      });
 
-    function prevSlide() {
-      $(".active").removeClass("active").addClass("oldActive");
-      if ($(".oldActive").is(":first-child")) {
-        $(".slide").last().addClass("active");
-      } else {
-        $(".oldActive").prev().addClass("active");
-      }
-      $(".oldActive").removeClass("oldActive");
-      $(".slide").fadeOut(slidePrevSpeed);
-      $(".active").fadeIn(slideNextSpeed);
-
-      //active 변동 시 주변 로드
-      loadAroundActive();
-    }
-
-    // slide pointer @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    // $("#next")
-    //   .on("mouseenter.slider", function () {
-    //     $(this).css("cursor", "url(./../img/nextPointer.png) 31 16, auto");
-    //   })
-    //   .on("mouseleave.slider", function () {
-    //     $(this).css("cursor", "auto");
-    //   });
-
-    // $("#prev")
-    //   .on("mouseenter.slider", function () {
-    //     $(this).css("cursor", "url(./../img/prevPointer.png) 1 16, auto");
-    //   })
-    //   .on("mouseleave.slider", function () {
-    //     $(this).css("cursor", "auto");
-    //   });
-  }
-
-  function destroySlider() {
-    if (!sliderInitialized) return;
-    sliderInitialized = false;
-
-    // 이벤트 제거
-    $("#next").off(".slider").css("cursor", "auto");
-    $("#prev").off(".slider").css("cursor", "auto");
-
-    // 슬라이드 상태 초기화 (원하는 형태로 조정 가능)
-    $(".slide").stop(true, true).show().removeClass("active oldActive");
-  }
-
-  function TouchSlideTriger() {
-    if (window.innerWidth > 768) {
-      initSlider(); // 커졌을 때 슬라이더 켜기
+      $imgs.each(function () {
+        const img = this;
+        // 이미 로드된 것은 제외
+        if (!$(img).data("loaded")) {
+          lazyObserver.observe(img);
+        }
+      });
     } else {
-      destroySlider(); // 작아졌을 때 슬라이더 끄기
+      // Fallback: scroll + resize 이벤트로 체크
+      if (!lazyScrollBound) {
+        lazyScrollBound = true;
+        $(window).on("scroll.lazyApp resize.lazyApp", lazyLoadOnScroll);
+      }
+      // 최초 1회 체크
+      lazyLoadOnScroll();
     }
   }
 
-  TouchSlideTriger();
-  $(window).on("resize", TouchSlideTriger);
+  function destroyLazyLoadForApp() {
+    if (lazyObserver) {
+      lazyObserver.disconnect();
+      lazyObserver = null;
+    }
+    if (lazyScrollBound) {
+      lazyScrollBound = false;
+      $(window).off("scroll.lazyApp resize.lazyApp");
+    }
+  }
+
+  // ===== 슬라이더 + prev/next 제어 =====
+
+  function slideResponsTriger() {
+    if (window.innerWidth > 768) {
+      // web slide 모드
+      destroyLazyLoadForApp(); // app용 lazy 해제
+
+      // prev / next 표시
+      $("#prev, #next").css("display", "inline-block");
+
+      if (sliderInitialized) return;
+      sliderInitialized = true;
+
+      function loadAroundActive() {
+        const $slides = $("#slider .slide");
+        const $active = $slides.filter(".active");
+        if (!$active.length) return;
+
+        const activeIndex = $slides.index($active);
+
+        $slides.each(function (i) {
+          const $slide = $(this);
+          const $img = $slide.find("img");
+          const distance = Math.abs(i - activeIndex);
+          if (distance <= 2) {
+            loadImage($img);
+          }
+        });
+      }
+
+      const slideNextSpeed = 300;
+      const slidePrevSpeed = 600;
+      const autoSwitch = false;
+      const autoSwitchSpeed = 4000;
+
+      if (autoSwitch === true) {
+        setInterval(nextSlide, autoSwitchSpeed);
+      }
+
+      $(".slide").first().addClass("active");
+      $(".slide").hide();
+      $(".active").show();
+
+      // 초기 로드
+      loadAroundActive();
+
+      $("#next").on("click.slider", nextSlide);
+      $("#prev").on("click.slider", prevSlide);
+
+      function nextSlide() {
+        $(".active").removeClass("active").addClass("oldActive");
+        if ($(".oldActive").is(":last-child")) {
+          $(".slide").first().addClass("active");
+        } else {
+          $(".oldActive").next().addClass("active");
+        }
+        $(".oldActive").removeClass("oldActive");
+        $(".slide").fadeOut(slidePrevSpeed);
+        $(".active").fadeIn(slideNextSpeed);
+
+        loadAroundActive();
+      }
+
+      function prevSlide() {
+        $(".active").removeClass("active").addClass("oldActive");
+        if ($(".oldActive").is(":first-child")) {
+          $(".slide").last().addClass("active");
+        } else {
+          $(".oldActive").prev().addClass("active");
+        }
+        $(".oldActive").removeClass("oldActive");
+        $(".slide").fadeOut(slidePrevSpeed);
+        $(".active").fadeIn(slideNextSpeed);
+
+        loadAroundActive();
+      }
+    } else {
+      // app 모드 (세로 나열 + lazy load)
+
+      // prev / next 숨김
+      $("#prev, #next").css("display", "none");
+
+      if (!sliderInitialized) {
+        // 이미 app 모드일 때는 lazy만 보장
+        initLazyLoadForApp();
+        return;
+      }
+
+      sliderInitialized = false;
+
+      // 슬라이더 이벤트 제거
+      $("#next").off(".slider").css("cursor", "auto");
+      $("#prev").off(".slider").css("cursor", "auto");
+
+      // 슬라이드 상태 초기화
+      $(".slide").stop(true, true).show().removeClass("active oldActive");
+
+      // app 모드용 lazy load 시작
+      initLazyLoadForApp();
+    }
+  }
+
+  slideResponsTriger();
+  $(window).on("resize", slideResponsTriger);
 });
 
-//Redefine Tablet Height @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// Redefine Tablet Height @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 function setAppHeight() {
   const appVh = window.innerHeight;
@@ -312,7 +280,8 @@ function setAppHeight() {
 window.addEventListener("resize", setAppHeight);
 window.addEventListener("orientationchange", setAppHeight);
 window.addEventListener("DOMContentLoaded", setAppHeight);
-//mobile footer @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+// mobile footer @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 function mobileFooter() {
   const brandGraphics = document.querySelector("footer ul li:nth-child(2)");
@@ -327,6 +296,8 @@ function mobileFooter() {
 
 window.addEventListener("DOMContentLoaded", mobileFooter);
 window.addEventListener("resize", mobileFooter);
+
+// alert password @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 const alert = document.getElementById("alertPopBack");
 const pwdInput = document.getElementById("overlay-password");
@@ -345,7 +316,7 @@ if (alert) {
   });
 }
 
-// slide Pointer BlendMode !delete slide pointer '*203'
+// slide Pointer BlendMode @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 const slidePointer = document.getElementById("slidePointer");
 const pointerImgs = document.querySelectorAll("#slidePointer img");
@@ -354,7 +325,7 @@ const nextPointer = pointerImgs[pointerImgs.length - 1];
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
 
-if (slidePointer) {
+if (slidePointer && prev && next) {
   function hidePointer() {
     slidePointer.style.display = "none";
     pointerImgs.forEach((img) => {
@@ -362,12 +333,10 @@ if (slidePointer) {
     });
   }
 
-  if (slidePointer) {
-    document.addEventListener("mousemove", (e) => {
-      slidePointer.style.left = e.clientX + "px";
-      slidePointer.style.top = e.clientY + "px";
-    });
-  }
+  document.addEventListener("mousemove", (e) => {
+    slidePointer.style.left = e.clientX + "px";
+    slidePointer.style.top = e.clientY + "px";
+  });
 
   prev.addEventListener("mouseenter", () => {
     document.body.style.cursor = "none";
