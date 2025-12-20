@@ -297,7 +297,7 @@ function mobileFooter() {
 window.addEventListener("DOMContentLoaded", mobileFooter);
 window.addEventListener("resize", mobileFooter);
 
-// alert password @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// alert password, func'enter' @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 const alert = document.getElementById("alertPopBack");
 const pwdInput = document.getElementById("overlay-password");
@@ -305,13 +305,22 @@ const pwdBtn = document.getElementById("overlay-btn");
 const pwdMsg = document.getElementById("overlay-msg");
 
 if (alert) {
-  pwdBtn.addEventListener("click", function () {
+  function handlePasswordCheck() {
     const value = pwdInput.value.trim();
 
-    if (value === slideSpeedValue) {
+    if(value === slideSpeedValue) {
       alert.classList.add("hidden");
     } else {
-      pwdMsg.textContent = "Incorrect password. Please try again";
+      pwdMsg.textContent = "죄송합니다. 아직 개발 중 입니다.";
+    }
+  }
+
+  pwdBtn.addEventListener("click", handlePasswordCheck);
+
+  pwdInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handlePasswordCheck();
     }
   });
 }
@@ -381,3 +390,5 @@ function handleResizeHeader() {
 
 handleResizeHeader();
 window.addEventListener("resize", handleResizeHeader);
+
+
