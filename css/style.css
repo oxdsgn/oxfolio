@@ -16,6 +16,8 @@
   --onHoverColor: #595959;
   --test-color-1: #00ffbf79;
   --test-color-2: #ff000071;
+  --test-color-3: #0073ff71;
+  --test-color-4: #ff00dd71;
   --mono-overpass: "Overpass Mono", monospace;
   --mono-flex: "IBM Plex Mono", monospace;
   --mono-dm: "DM Mono", monospace;
@@ -41,7 +43,7 @@
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   font-weight: 500;
   /* font-size: clamp(8pt, 1.6vh, 16pt); */
-  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  font-size: 12px;
 }
 
 #page-projects {
@@ -70,6 +72,7 @@ body {
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
 }
 
 body {
@@ -158,32 +161,88 @@ a:active {
   display: none;
 }
 
-header {
+/* -----------------WEB header----------------- */
+.hdrWeb {
+  background-color: #eeeeee6d;
+  backdrop-filter: blur(5px);
   position: fixed;
   top: 0;
   left: 10px;
   right: 10px;
-  z-index: var(--depth2);
+  z-index: var(--depthTop);
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-header ul {
+.hdrWeb ul {
   margin: 0.8rem 0 0.6rem auto;
   display: grid;
   white-space: nowrap;
   grid-template-columns: 6fr 3fr 2fr;
 }
 
-header ul li:nth-child(1) a {
+.hdrWeb ul li:nth-child(1) a {
   text-decoration: none;
 }
 
-header ul li:nth-child(2) a {
+.hdrWeb ul li:nth-child(2) a {
   margin-left: 0.3rem;
 }
 
-header ul li:nth-child(3) {
+.hdrWeb ul li:nth-child(3) {
   text-align: right;
+}
+
+/* -----------------Mobile header----------------- */
+.hdrMobile {
+  background-color: #eeeeee6d;
+  backdrop-filter: blur(5px);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 0 15px 0 15px;
+  z-index: var(--depthTop);
+}
+
+.hdrMobile * {
+  font-size: 2rem;
+}
+
+.hdrMobile ul {
+  margin: 0.8rem 0 0.6rem 0;
+  width: calc(100% - 30px);
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+  margin-top: 15px;
+  align-items: end;
+}
+
+.hdrMobile ul li {
+  margin-bottom: 0.4rem;
+}
+
+.hdrMobile ul li:nth-child(1) {
+  margin-right: auto;
+  /* background-color: var(--test-color-1); */
+}
+
+.hdrMobile ul li:nth-child(3) {
+  text-align: right;
+  width: 100%;
+  /* background-color: var(--test-color-3); */
+}
+
+.hdrMobile ul li:first-child a {
+  text-decoration: none;
+}
+
+.hdrMobile ul li:nth-child(2) a {
+  margin-left: 0.6rem;
+}
+
+#mobileGradient {
+  
 }
 
 footer {

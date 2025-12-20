@@ -362,3 +362,22 @@ if (slidePointer && prev && next) {
     document.body.style.cursor = "auto";
   });
 }
+
+function handleResizeHeader() {
+  const header = document.getElementById("header");
+  const footer = document.getElementById("footer");
+  const width = window.innerWidth;
+
+  if (width < 768) {
+    header.classList.remove("hdrWeb");
+    header.classList.add("hdrMobile");
+    footer.style.display = "none";
+  } else {
+    header.classList.remove("hdrMobile");
+    header.classList.add("hdrWeb");
+    footer.style.display = "";
+  }
+}
+
+handleResizeHeader();
+window.addEventListener("resize", handleResizeHeader);
