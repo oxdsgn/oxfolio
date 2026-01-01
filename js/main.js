@@ -219,8 +219,8 @@ $(document).ready(function () {
         });
       }
 
-      const slideNextSpeed = 300;
-      const slidePrevSpeed = 600;
+      const slideNextSpeed = 100;
+      const slidePrevSpeed = 150;
       const autoSwitch = false;
       const autoSwitchSpeed = 4000;
 
