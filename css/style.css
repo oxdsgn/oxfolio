@@ -13,7 +13,7 @@
 :root {
   --bg-color: #eee;
   --onClickColor: #c2c2c2;
-  --onHoverColor: #595959;
+  --onHoverColor: #505050;
   --test-color-1: #00ffbf79;
   --test-color-2: #ff000071;
   --test-color-3: #0073ff71;
@@ -63,12 +63,12 @@ ul {
 }
 
 p {
-  color: #2a2a2a;
+  color: #111;
 }
 
 li {
   list-style: none;
-  color: #2a2a2a;
+  color: #111;
 }
 
 html,
@@ -80,9 +80,9 @@ body {
 }
 
 body {
-  /* margin: auto 10px; */
-  background-color: #eee;
-  /* background-color: var(--test-color-2); */
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
 }
 
 img {
@@ -96,7 +96,11 @@ figcaption::selection {
 
 a {
   color: #2a2a2a;
-  transition: color 0.3s;
+  transition: color 0.1s;
+}
+
+img:active {
+  opacity: 0.6;
 }
 
 a:hover {
@@ -105,6 +109,11 @@ a:hover {
 
 a:active {
   color: var(--onClickColor);
+}
+
+main {
+  margin: auto 10px;
+  max-width: 1920px;
 }
 
 #alertPopBack {
@@ -201,16 +210,14 @@ header {
 #mobileUl {
   display: grid;
   width: 100%;
-  padding: 0 10px;
-  margin-top: 0.8rem;
-  /* grid-template-columns: 6fr 5fr; */
+  background-color: #eeeeee;
+  padding: 0.6rem 10px 0 10px;
   grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  /* border: #ff0000 2px solid; */
-  /* background-color: var(--test-color-1); */
 }
 
 #mobileUl div {
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  padding-bottom: 0.6rem;
 }
 
 #mobileUl > div {
@@ -244,6 +251,7 @@ header {
 }
 
 /* -----------------Mobile header end----------------- */
+
 footer {
   position: fixed;
   bottom: 0;
@@ -251,6 +259,7 @@ footer {
   right: 10px;
   z-index: var(--depth2);
   border-top: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: #eeeeee;
 }
 
 footer ul {
@@ -262,10 +271,6 @@ footer ul {
 
 footer ul li:last-child {
   text-align: right;
-}
-
-main {
-  margin: auto 10px;
 }
 
 #sec1 {
@@ -325,10 +330,6 @@ main {
 
 .item3-1 {
   flex: 0 0 75%;
-}
-
-.item a img:active {
-  opacity: 0.6;
 }
 
 .item a {
@@ -392,8 +393,6 @@ main {
 /* 기본: 모바일/공통에서 slideContainer는 콘텐츠 높이에 맞게 늘어남 */
 #slideContainer {
   margin: 0 auto var(--footer-height) auto;
-  /* min-height: calc(100vh - var(--footer-height) - var(--header-height)); */
-  /* background-color: var(--test-color-1); */
 }
 
 #slider {
@@ -467,4 +466,8 @@ main {
 
 #next {
   right: 0;
+}
+
+.mainMargin {
+  margin-top: 200px;
 }

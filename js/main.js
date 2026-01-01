@@ -1,3 +1,28 @@
+function handleResizeHeader() {
+  const header = document.getElementById("header");
+  const footer = document.getElementById("footer");
+  const width = window.innerWidth;
+  const webUl = document.getElementById("webUl");
+  const mobileUl = document.getElementById("mobileUl");
+
+  if (width < 768) {
+    header.classList.remove("hdrWeb");
+    header.classList.add("hdrMobile");
+    footer.style.display = "none";
+    webUl.style.display = "none";
+    mobileUl.style.display = "";
+  } else {
+    header.classList.remove("hdrMobile");
+    header.classList.add("hdrWeb");
+    footer.style.display = "";
+    mobileUl.style.display = "none";
+    webUl.style.display = "";
+  }
+}
+
+handleResizeHeader();
+window.addEventListener("resize", handleResizeHeader);
+
 const header = document.querySelector("header");
 const footer = document.querySelector("footer");
 
@@ -66,7 +91,7 @@ window.addEventListener("resize", setSlideSizeRespon);
 document.addEventListener("DOMContentLoaded", function () {
   const dateLi = document.getElementById("update-date");
   if (dateLi) {
-    dateLi.textContent = "Site Updated on 2025. 12";
+    dateLi.textContent = "Site Updated on 2026. 01";
   }
 });
 
@@ -371,28 +396,3 @@ if (slidePointer && prev && next) {
     document.body.style.cursor = "auto";
   });
 }
-
-function handleResizeHeader() {
-  const header = document.getElementById("header");
-  const footer = document.getElementById("footer");
-  const width = window.innerWidth;
-  const webUl = document.getElementById("webUl");
-  const mobileUl = document.getElementById("mobileUl");
-
-  if (width < 768) {
-    header.classList.remove("hdrWeb");
-    header.classList.add("hdrMobile");
-    footer.style.display = "none";
-    webUl.style.display = "none";
-    mobileUl.style.display = "";
-  } else {
-    header.classList.remove("hdrMobile");
-    header.classList.add("hdrWeb");
-    footer.style.display = "";
-    mobileUl.style.display = "none";
-    webUl.style.display = "";
-  }
-}
-
-handleResizeHeader();
-window.addEventListener("resize", handleResizeHeader);
