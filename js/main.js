@@ -308,10 +308,10 @@ if (alert) {
   function handlePasswordCheck() {
     const value = pwdInput.value.trim();
 
-    if(value === slideSpeedValue) {
+    if (value === slideSpeedValue) {
       alert.classList.add("hidden");
     } else {
-      pwdMsg.textContent = "죄송합니다. 아직 개발 중 입니다.";
+      pwdMsg.textContent = "해당 웹사이트는 아직 개발 단계에 있습니다.";
     }
   }
 
@@ -376,19 +376,23 @@ function handleResizeHeader() {
   const header = document.getElementById("header");
   const footer = document.getElementById("footer");
   const width = window.innerWidth;
+  const webUl = document.getElementById("webUl");
+  const mobileUl = document.getElementById("mobileUl");
 
   if (width < 768) {
     header.classList.remove("hdrWeb");
     header.classList.add("hdrMobile");
     footer.style.display = "none";
+    webUl.style.display = "none";
+    mobileUl.style.display = "";
   } else {
     header.classList.remove("hdrMobile");
     header.classList.add("hdrWeb");
     footer.style.display = "";
+    mobileUl.style.display = "none";
+    webUl.style.display = "";
   }
 }
 
 handleResizeHeader();
 window.addEventListener("resize", handleResizeHeader);
-
-

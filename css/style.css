@@ -34,6 +34,7 @@
 *::selection {
   background-color: #0b0b0b;
   color: #fff;
+  box-sizing: border-box;
 }
 
 * {
@@ -46,13 +47,14 @@
   font-weight: 500;
   /* font-size: clamp(8pt, 1.6vh, 16pt); */
   font-size: 12px;
+  box-sizing: border-box;
 }
 
 #page-projects {
-  -ms-overflow-style: none;
+  /* -ms-overflow-style: none; */
 }
 #page-projects::-webkit-scrollbar {
-  display: none;
+  /* display: none; */
 }
 
 ul {
@@ -74,7 +76,7 @@ body {
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
-  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  /* font-size: clamp(0.8rem, 1.5vw, 1rem); */
 }
 
 body {
@@ -103,11 +105,6 @@ a:hover {
 
 a:active {
   color: var(--onClickColor);
-}
-
-.blur {
-  background-color: #eeeeee6d;
-  backdrop-filter: blur(5px);
 }
 
 #alertPopBack {
@@ -163,15 +160,20 @@ a:active {
   display: none;
 }
 
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  backdrop-filter: blur(5px) saturate(180%);
+  z-index: var(--depth5);
+}
+
 /* -----------------WEB header----------------- */
 .hdrWeb {
   background-color: #eeeeee6d;
-  backdrop-filter: blur(5px);
-  position: fixed;
-  top: 0;
+  width: auto;
   left: 10px;
   right: 10px;
-  z-index: var(--depth5);
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
@@ -179,7 +181,7 @@ a:active {
   margin: 0.8rem 0 0.6rem auto;
   display: grid;
   white-space: nowrap;
-  grid-template-columns: 6fr 3fr 2fr;
+  grid-template-columns: 6fr 4fr 1fr;
 }
 
 .hdrWeb ul li:nth-child(1) a {
@@ -195,58 +197,53 @@ a:active {
 }
 
 /* -----------------Mobile header----------------- */
-.hdrMobile {
-  background-color: #eeeeee6d;
-  backdrop-filter: blur(5px);
-  position: fixed;
-  top: 0;
+
+#mobileUl {
+  display: grid;
   width: 100%;
-  padding: 0 15px 0 15px;
-  z-index: var(--depth5);
-}
-
-.hdrMobile * {
-  font-size: 1.6rem;
-  /* font-size: clamp(1.2rem, 2vw, 1.6rem); */
-}
-
-.hdrMobile ul {
-  margin: 0.8rem 0 0.6rem 0;
-  width: calc(100% - 30px);
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  /* flex-direction: column; */
-  margin-top: 15px;
-  align-items: end;
-}
-
-.hdrMobile ul li {
-  margin-bottom: 0.4rem;
-}
-
-.hdrMobile ul li:nth-child(1) {
-  margin-right: auto;
+  padding: 0 10px;
+  margin-top: 0.8rem;
+  /* grid-template-columns: 6fr 5fr; */
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  /* border: #ff0000 2px solid; */
   /* background-color: var(--test-color-1); */
 }
 
-.hdrMobile ul li:nth-child(3) {
-  text-align: right;
-  width: 100%;
-  /* background-color: var(--test-color-3); */
+#mobileUl div {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-.hdrMobile ul li:first-child a {
+#mobileUl > div {
+  min-width: 0;
+}
+
+#mobileUl div:nth-child(1) a {
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.hdrMobile ul li:nth-child(2) a {
-  margin-left: 0.6rem;
+#mobileUl div:nth-child(2) p {
+  display: inline-block;
 }
 
-#mobileGradient {
+#mobileUl > div:nth-child(1),
+#mobileUl > div:nth-child(2) {
+  min-width: 0;
+  max-width: 100%; /* 안전장치 */
 }
 
+#mobileUl,
+#mobileUl * {
+  font-size: 1.8rem;
+}
+
+#mobileUl div:nth-child(2) p:nth-child(n + 2) {
+  margin: auto 0.3rem 0.3rem auto;
+}
+
+/* -----------------Mobile header end----------------- */
 footer {
   position: fixed;
   bottom: 0;
@@ -259,7 +256,7 @@ footer {
 footer ul {
   display: grid;
   white-space: nowrap;
-  grid-template-columns: 6fr 3fr 2fr;
+  grid-template-columns: 6fr 4fr 1fr;
   margin: 0.8rem 0 0.6rem auto;
 }
 
@@ -291,6 +288,17 @@ main {
   text-indent: 4rem;
 }
 
+/* test sec2 1line layout */
+@media screen and (max-width: 768px) {
+  #sec2 .container > .item1-1,
+  #sec2 .container > .item2-1,
+  #sec2 .container > .item3-1 {
+    /* flex: 0 0 100%; */
+    /* min-width: 0; */
+  }
+}
+/* test */
+
 #sec2 {
   padding: 0.8rem 0 3rem 0;
   margin: 0 0 10rem 0;
@@ -299,6 +307,12 @@ main {
 #sec2 .container {
   display: flex;
   flex-wrap: wrap;
+}
+
+#sec2 .container > .item1-1,
+#sec2 .container > .item2-1,
+#sec2 .container > .item3-1 {
+  min-width: 0;
 }
 
 .item1-1 {
@@ -325,6 +339,9 @@ main {
 .item a img {
   object-fit: cover;
   width: 100%;
+  min-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .item figcaption {
@@ -352,6 +369,8 @@ main {
   color: #ddd;
 }
 
+/* ------------------------------------------SLIDER----------------------------------------------- */
+
 #slidePointer {
   position: fixed;
   left: 0;
@@ -369,8 +388,6 @@ main {
   width: 100%;
   height: 100%;
 }
-
-/* ------------------------------------------SLIDER----------------------------------------------- */
 
 /* 기본: 모바일/공통에서 slideContainer는 콘텐츠 높이에 맞게 늘어남 */
 #slideContainer {
