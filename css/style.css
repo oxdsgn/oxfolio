@@ -50,13 +50,6 @@
   box-sizing: border-box;
 }
 
-#page-projects {
-  /* -ms-overflow-style: none; */
-}
-#page-projects::-webkit-scrollbar {
-  /* display: none; */
-}
-
 ul {
   padding: 0;
   margin: 0;
@@ -295,14 +288,16 @@ footer ul li:last-child {
 }
 
 /* test sec2 1line layout */
-@media screen and (max-width: 768px) {
+
+/*@media screen and (max-width: 768px) {
   #sec2 .container > .item1-1,
   #sec2 .container > .item2-1,
   #sec2 .container > .item3-1 {
-    /* flex: 0 0 100%; */
-    /* min-width: 0; */
+    flex: 0 0 100%;
+    min-width: 0;
   }
-}
+}*/
+
 /* test */
 
 #sec2 {
