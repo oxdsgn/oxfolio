@@ -412,7 +412,7 @@ footer ul li:last-child {
   padding: 0;
 }
 
-/* 모바일(app) 모드: slideMobile = 세로 나열 */
+/* -------------------  모바일(app) 세로 나열  ------------------- */
 .slideMobile {
   position: static;
   width: 100%;
@@ -421,9 +421,11 @@ footer ul li:last-child {
 
 .slideMobile img {
   width: 100%;
+  margin-top: 0.4rem;
+  border-radius: 0.4rem !important;
 }
 
-/* 데스크탑(web) 모드: slideWeb = 원래 슬라이더 레이아웃 */
+/* --------------------  데스크탑(web) 슬라이더 레이아웃  -------------------- */
 @media screen and (min-width: 768px) {
   #slideContainer {
     height: calc(100vh - var(--footer-height) - var(--header-height));
@@ -442,9 +444,14 @@ footer ul li:last-child {
   }
 
   .slideWeb img {
-    max-height: calc(100vh - var(--header-height) - var(--footer-height));
-    max-height: calc(100dvh - var(--header-height) - var(--footer-height));
-    max-width: 100vw;
+    max-height: calc(
+      100vh - var(--header-height) - var(--footer-height) - 14px
+    );
+    max-height: calc(
+      100dvh - var(--header-height) - var(--footer-height) - 14px
+    );
+    max-width: calc(100vw - 20px);
+    border-radius: 0.6rem !important;
   }
 
   @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -482,13 +489,6 @@ footer ul li:last-child {
 .mainMargin {
   margin-top: 200px;
 }
-
-/* slide rounded test */
-.slide 
-
-
-
-
 
 /* ---------------------------------------------------------------------------- */
 /* --------------------------------   motion   -------------------------------- */
