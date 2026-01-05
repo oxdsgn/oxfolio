@@ -45,8 +45,8 @@
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   font-weight: 500;
-  /* font-size: clamp(8pt, 1.6vh, 16pt); */
-  font-size: 12px;
+  font-size: clamp(9px, 1.6vw, 14px);
+  /* font-size: 12px; */
   box-sizing: border-box;
 }
 
