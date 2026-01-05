@@ -32,8 +32,8 @@
 }
 
 *::selection {
-  background-color: #0b0b0b;
-  color: #fff;
+  background-color: #111;
+  color: #eee;
   box-sizing: border-box;
 }
 
@@ -45,9 +45,10 @@
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   font-weight: 500;
-  font-size: clamp(9px, 1.6vw, 14px);
+  font-size: clamp(12px, 0.8vw, 16px);
   /* font-size: 12px; */
   box-sizing: border-box;
+  color: #111;
 }
 
 ul {
@@ -84,13 +85,14 @@ img {
 }
 
 figcaption::selection {
-  background-color: #0b0b0b;
-  color: #fff;
+  background-color: #111;
+  color: #eee;
 }
 
 a {
-  color: #2a2a2a;
-  transition: color 0.1s;
+  color: #111;
+  /* transition: color 0.1s; */
+  /* text-decoration: none; */
 }
 
 img:active {
@@ -98,7 +100,7 @@ img:active {
 }
 
 a:hover {
-  color: var(--onHoverColor);
+  /* color: var(--onHoverColor); */
 }
 
 a:active {
@@ -187,16 +189,29 @@ header {
   grid-template-columns: 6fr 4fr 1fr;
 }
 
-.hdrWeb ul li:nth-child(1) a {
+.hdrWeb ul li:nth-child(-n + 2) a {
   text-decoration: none;
 }
 
 .hdrWeb ul li:nth-child(2) a {
-  margin-left: 0.3rem;
+  margin-left: 0.05rem;
 }
 
 .hdrWeb ul li:nth-child(3) {
-  text-align: right;
+  text-align: end;
+}
+
+.hdrWeb ul li:nth-child(3) a span {
+  display: none;
+}
+
+.hdrWeb ul li:nth-child(2) a span:first-child {
+  display: hidden;
+  text-decoration: none;
+}
+
+.hdrWeb ul li:nth-child(2) a span:last-child {
+  text-decoration: underline;
 }
 
 /* -----------------Mobile header----------------- */
@@ -467,3 +482,131 @@ footer ul li:last-child {
 .mainMargin {
   margin-top: 200px;
 }
+
+/* slide rounded test */
+
+
+
+
+
+
+/* ---------------------------------------------------------------------------- */
+/* --------------------------------   motion   -------------------------------- */
+/* ---------------------------------------------------------------------------- */
+
+.btnColor1:before {
+  background-color: #111;
+}
+
+.btnColor1:after {
+  background-color: #eee;
+}
+
+.btnColor2:before {
+  /* background-color: #111; */
+  /* background: linear-gradient(40deg, oklch(50% 0.25 340) 0%, oklch(70% 0.25 35) 50%, oklch(80% 0.25 75) 100%); */
+  /* background: linear-gradient(30deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 64%, rgba(252, 176, 69, 1) 100%); */
+  background: radial-gradient(
+    circle at 33% 100%,
+    #fed373 4%,
+    #f15245 30%,
+    #d92e7f 62%,
+    #9b36b7 85%,
+    #515ecf
+  );
+}
+
+.hdrWeb ul li:nth-child(3) a:hover {
+  color: #eee;
+}
+
+.hdrWeb ul li:nth-child(3) a:hover span {
+  display: inline;
+}
+
+.btnColor2:after {
+  background-color: #eee;
+}
+
+.hdrWeb ul li:nth-child(2) a:hover span:first-child {
+  display: inline;
+}
+
+.btnMtnBg {
+  position: relative;
+  padding: 0.2em 0 0.2em 0;
+}
+
+.hdrWeb ul li:nth-child(2) a:hover span:last-child {
+  color: #eee;
+  text-decoration: none;
+}
+
+.btnMtnBg::before {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-4px);
+  -webkit-transform: translateY(-8px);
+  opacity: 0;
+}
+
+.btnMtnLine::after {
+  content: "";
+  z-index: 2;
+  position: absolute;
+  height: 1px;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  transform: translateY(4px);
+  -webkit-transform: translateY(4px);
+}
+
+.btnMtnBg:hover::before {
+  opacity: 1;
+  bottom: 0;
+  height: 100%;
+  transform: translateY(0px);
+  -webkit-transform: translateY(0px);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.2s, -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btnMtnLine:hover::after {
+  opacity: 1;
+  transform: translateY(0px);
+  -webkit-transform: translateY(0px);
+  transition: transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0s 0.2s,
+    -webkit-transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btnMtnBg:focus::before,
+.btnMtnLine:focus::after {
+  outline: 0;
+}
+
+.logoMtn {
+  position: relative;
+}
+
+.logoMtn:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  color: #111;
+}
+
+/* ---------------------------------------------------------------------------- */
+/* --------------------------------   motion   -------------------------------- */
+/* ---------------------------------------------------------------------------- */
