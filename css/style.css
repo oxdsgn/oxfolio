@@ -422,7 +422,7 @@ footer ul li:last-child {
 
 .slideMobile img {
   width: 100%;
-  margin-top: 0.4rem;
+  margin-top: 0.1rem;
   border-radius: 0.4rem !important;
   border: 1px solid #d7d7d7;
 }
@@ -486,21 +486,6 @@ footer ul li:last-child {
 
 #next {
   right: 0;
-}
-
-#mobileGradient {
-  position: fixed;
-  bottom: 0;
-  width: 100vw;
-  height: calc(var(--header-height) / 2);
-  z-index: var(--depth3);
-  /* background-color: #f00; */
-  background: linear-gradient(
-    180deg,
-    rgba(238, 238, 238, 0) 2%,
-    rgba(238, 238, 238, 0.5) 100%
-  );
-  /* background : #eeeeee00; */
 }
 
 /* ---------------------------------------------------------------------------- */
