@@ -4,6 +4,7 @@ function handleResizeHeader() {
   const width = window.innerWidth;
   const webUl = document.getElementById("webUl");
   const mobileUl = document.getElementById("mobileUl");
+    const mobileFtr = document.getElementById("mobileFtr");
 
   if (width < 768) {
     header.classList.remove("hdrWeb");
@@ -11,14 +12,24 @@ function handleResizeHeader() {
     footer.style.display = "none";
     webUl.style.display = "none";
     mobileUl.style.display = "";
+
+    if (mobileFtr) {
+      mobileFtr.style.display = "";
+    }
   } else {
     header.classList.remove("hdrMobile");
     header.classList.add("hdrWeb");
     footer.style.display = "";
     mobileUl.style.display = "none";
     webUl.style.display = "";
+
+    if (mobileFtr) {
+      mobileFtr.style.display = "none";
+    }
   }
 }
+
+
 
 handleResizeHeader();
 window.addEventListener("resize", handleResizeHeader);
