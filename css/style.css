@@ -80,8 +80,7 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: var(--app-height);
   padding-top: env(safe-area-inset-top);
   padding-right: env(safe-area-inset-right);
   padding-bottom: env(safe-area-inset-bottom);
