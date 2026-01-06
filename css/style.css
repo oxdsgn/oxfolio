@@ -80,7 +80,11 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
+  min-height: 100vh;
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
   padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
 }
 
 img {
@@ -116,7 +120,7 @@ main {
 }
 
 #alertPopBack {
-  background-color: #eeeeee6d;
+  background-color: #383838d4;
   backdrop-filter: blur(5px);
   position: fixed;
   width: 100%;
@@ -130,24 +134,26 @@ main {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #7f7f7f1e;
-  border-radius: 1rem;
-  min-width: 800px;
+  background: #f4f4f40c;
+  background: linear-gradient(160deg, #f4f4f40c 0%, #f4f4f426 100%);
+  border-radius: 1.5rem;
   min-height: 140px;
   filter: drop-shadow(4px 4px 15px #00000014);
-  padding: 40px 0 30px 0;
+  padding: 3rem 5rem 2rem 5rem;
+  border: 1px solid #999999;
 }
 
 .alertPop h3 {
   text-align: center;
   font-size: 1.5rem;
-  color: #1e1e1e;
+  font-weight: 300;
+  color: #eee;
 }
 
 #overlay-password {
   display: block;
   text-align: center;
-  margin: 20px auto 0 auto;
+  margin: 1.5rem auto 1rem auto;
 }
 
 #overlay-btn {
@@ -161,11 +167,15 @@ main {
   text-align: center;
   font-size: 0.9rem;
 
-  color: #ff0000;
+  color: #ffd500ea;
 }
 
 .hidden {
   display: none;
+}
+
+.lock-scroll {
+  position: fixed !important;
 }
 
 header {

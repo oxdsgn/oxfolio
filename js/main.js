@@ -343,9 +343,11 @@ const pwdMsg = document.getElementById("overlay-msg");
 if (alert) {
   function handlePasswordCheck() {
     const value = pwdInput.value.trim();
+    const body = document.getElementById("body")
 
     if (value === slideSpeedValue) {
       alert.classList.add("hidden");
+      body.classList.remove("lock-scroll");
     } else {
       pwdMsg.textContent = "해당 웹사이트는 아직 개발 단계에 있습니다.";
     }
