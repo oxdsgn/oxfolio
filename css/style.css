@@ -70,7 +70,6 @@ html,
 body {
   width: 100%;
   min-height: 100%;
-  overflow-x: hidden;
   /* font-size: clamp(0.8rem, 1.5vw, 1rem); */
 }
 
@@ -175,7 +174,7 @@ main {
 }
 
 .lock-scroll {
-  position: fixed !important;
+overflow: hidden;
 }
 
 header {
