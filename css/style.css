@@ -66,6 +66,11 @@ li {
   color: #111;
 }
 
+html,
+body {
+  min-height: 100dvh;
+}
+
 html {
   background: transparent;
   width: 100%;
@@ -302,6 +307,7 @@ footer ul li:last-child {
   width: 100%;
   padding: 1rem 0 10px 0;
   background-color: var(--test-color-1);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 #sec1 {
@@ -401,6 +407,12 @@ footer ul li:last-child {
   overflow: hidden;
   box-sizing: border-box;
   color: #ddd;
+}
+
+@media screen and (min-width: 768px) {
+  #sec3 {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
 
 /* ------------------------------------------SLIDER----------------------------------------------- */
