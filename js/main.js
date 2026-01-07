@@ -339,12 +339,16 @@ const alert = document.getElementById("alertPopBack");
 const pwdInput = document.getElementById("overlay-password");
 const pwdBtn = document.getElementById("overlay-btn");
 const pwdMsg = document.getElementById("overlay-msg");
+const body = document.getElementById("body")
 
 if (alert) {
+  function addLockScroll() {
+    body.classList.add("lock-scroll")
+  }
+
   function handlePasswordCheck() {
     const value = pwdInput.value.trim();
-    const body = document.getElementById("body")
-
+    
     if (value === slideSpeedValue) {
       alert.classList.add("hidden");
       body.classList.remove("lock-scroll");
@@ -353,8 +357,9 @@ if (alert) {
     }
   }
 
-  pwdBtn.addEventListener("click", handlePasswordCheck);
+  window.addEventListener("DOMContentLoaded", addLockScroll);
 
+  pwdBtn.addEventListener("click", handlePasswordCheck);
   pwdInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
