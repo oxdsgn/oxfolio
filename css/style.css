@@ -658,16 +658,31 @@ footer ul li:last-child {
   outline: 0;
 }
 
-.logoMtn {
+.lineMtn {
   position: relative;
+  display: inline-block;
 }
 
-.logoMtn:after {
+.lineMtn::after {
   content: "";
   position: absolute;
-  width: 100%;
+  bottom: -2px;
+  left: 0;
   height: 1px;
-  color: #111;
+  width: 100%;
+  background-color: currentColor;
+  /* transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.1s, -webkit-transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
+  transition: transform 0.2s ease-in-out, opacity 0.2s;
+  transform: scaleX(0);
+  opacity: 0;
+
+  transform-origin: left;
+}
+
+.lineMtn:hover::after {
+  transform: scaleX(1);
+  opacity: 1;
 }
 
 /* ---------------------------------------------------------------------------- */
