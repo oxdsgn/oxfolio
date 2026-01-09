@@ -281,6 +281,16 @@ header {
   margin: auto 0.3rem 0.3rem auto;
 }
 
+@media screen and (max-width: 768px) {
+  #mobileUl {
+    grid-template-columns: 5fr 6fr !important;
+  }
+
+  #sec1 {
+    grid-template-columns: 5fr 6fr !important;
+  }
+}
+
 /* -----------------Mobile header end----------------- */
 
 footer {
